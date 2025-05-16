@@ -11,6 +11,8 @@ interface TranscriptFormProps {
 export default function TranscriptForm({ onSubmit, isLoading }: TranscriptFormProps) {
   const [url, setUrl] = useState('');
   const [error, setError] = useState('');
+  const [debugMode, setDebugMode] = useState(false);
+  const [debugResponse, setDebugResponse] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +32,72 @@ export default function TranscriptForm({ onSubmit, isLoading }: TranscriptFormPr
     
     setError('');
     onSubmit(url);
+  };
+
+  // Test the main transcript API (POST)
+  const testTranscriptApi = async () => {
+    try {
+      setDebugResponse('Testing transcript API endpoint...');
+      console.log('Testing transcript API endpoint (POST)');
+      
+      const response = await fetch('/api/transcript', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }),
+      });
+      
+      console.log(`Transcript API test response status: ${response.status}`);
+      
+      const text = await response.text();
+      console.log('Transcript API test response body:', text);
+      
+      setDebugResponse(`Transcript API POST test: Status ${response.status}. Response: ${text}`);
+    } catch (err) {
+      console.error('Transcript API test error:', err);
+      setDebugResponse(`Transcript API test error: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  };
+
+  // Test the main transcript API (GET)
+  const testTranscriptApiGet = async () => {
+    try {
+      setDebugResponse('Testing transcript API endpoint (GET)...');
+      console.log('Testing transcript API endpoint (GET)');
+      
+      const response = await fetch('/api/transcript');
+      
+      console.log(`Transcript API GET test response status: ${response.status}`);
+      
+      const text = await response.text();
+      console.log('Transcript API GET test response body:', text);
+      
+      setDebugResponse(`Transcript API GET test: Status ${response.status}. Response: ${text}`);
+    } catch (err) {
+      console.error('Transcript API GET test error:', err);
+      setDebugResponse(`Transcript API GET test error: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  };
+
+  // Test the new test API endpoint
+  const testTestApi = async () => {
+    try {
+      setDebugResponse('Testing test API endpoint...');
+      console.log('Testing test API endpoint');
+      
+      const response = await fetch('/api/test');
+      
+      console.log(`Test API response status: ${response.status}`);
+      
+      const text = await response.text();
+      console.log('Test API response body:', text);
+      
+      setDebugResponse(`Test API endpoint: Status ${response.status}. Response: ${text}`);
+    } catch (err) {
+      console.error('Test API error:', err);
+      setDebugResponse(`Test API error: ${err instanceof Error ? err.message : String(err)}`);
+    }
   };
 
   return (
@@ -67,6 +135,52 @@ export default function TranscriptForm({ onSubmit, isLoading }: TranscriptFormPr
             'Get Transcript'
           )}
         </button>
+        
+        <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setDebugMode(!debugMode)}
+            className="text-sm text-gray-500 hover:text-gray-700"
+          >
+            {debugMode ? 'Hide Debug' : 'Debug Mode'}
+          </button>
+        </div>
+
+        {debugMode && (
+          <div className="mt-4 p-3 border border-gray-300 rounded-md bg-gray-50">
+            <h3 className="font-medium mb-2">API Testing Tools</h3>
+            <div className="space-y-2">
+              <div className="flex space-x-2">
+                <button
+                  type="button"
+                  onClick={testTranscriptApi}
+                  className="text-sm bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded"
+                >
+                  Test Transcript API (POST)
+                </button>
+                <button
+                  type="button"
+                  onClick={testTranscriptApiGet}
+                  className="text-sm bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded"
+                >
+                  Test Transcript API (GET)
+                </button>
+                <button
+                  type="button"
+                  onClick={testTestApi}
+                  className="text-sm bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded"
+                >
+                  Test /api/test Endpoint
+                </button>
+              </div>
+              {debugResponse && (
+                <div className="text-xs mt-2 p-2 bg-white border border-gray-200 rounded max-h-40 overflow-auto">
+                  <pre>{debugResponse}</pre>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );

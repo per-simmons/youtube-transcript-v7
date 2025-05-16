@@ -1,73 +1,48 @@
 # YouTube Transcript Downloader
 
-A web application that allows you to extract and download transcripts from YouTube videos. Built with Next.js and leveraging the youtube-transcript-plus library for transcript extraction.
+A web application that allows users to download transcripts from YouTube videos.
 
 ## Features
 
-- Extract transcripts from any YouTube video that has captions available
-- Display timestamped transcripts in a readable format
-- Download transcripts as a text file
-- Clean, responsive UI built with Tailwind CSS
-- Comprehensive error handling for various failure scenarios
+- Extract transcripts from any YouTube video that has captions
+- Clean, responsive user interface
+- Download transcripts as formatted text files
+- Handles various error cases gracefully
+- Built with Next.js, React, and TypeScript
 
-## Tech Stack
+## Development
 
-- **Frontend**: Next.js with App Router, React, Tailwind CSS
-- **Backend**: Next.js API Routes with Node.js runtime
-- **Transcript Extraction**: youtube-transcript-plus library
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18.17 or later
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/youtube-transcript-downloader.git
-   cd youtube-transcript-downloader
-   ```
-
+1. Clone the repository
 2. Install dependencies:
-   ```bash
+   ```
    npm install
    ```
-
 3. Run the development server:
-   ```bash
+   ```
    npm run dev
    ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+## Troubleshooting
 
-### Build for Production
+If you encounter the "Transcripts are disabled for this video" error, try the following:
 
-```bash
-npm run build
-npm start
+1. Verify that the video actually has captions/transcripts by checking on YouTube
+2. Try using a different YouTube video
+3. If the issue persists, it might be related to YouTube's API changes or rate limiting
+
+## Testing
+
+You can test the transcript extraction functionality using the included test script:
+
+```
+node test-transcript.js
 ```
 
-## Deployment
+## Technical Details
 
-This application is fully compatible with Vercel and can be deployed without any additional configuration:
-
-1. Push your code to a GitHub repository
-2. Import the repository in Vercel
-3. Deploy
-
-## How to Use
-
-1. Enter a valid YouTube URL in the input field
-2. Click "Get Transcript" to fetch the transcript
-3. View the transcript with timestamps
-4. Click "Download as TXT" to save the transcript to your device
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- [youtube-transcript-plus](https://github.com/ericmmartin/youtube-transcript-plus) for the transcript extraction functionality 
+- Built with Next.js 15.3.2 and React 19
+- Uses the youtube-transcript-plus library for transcript extraction
+- Styled with Tailwind CSS 4.0
+- TypeScript for type safety
+- Deployed on Vercel

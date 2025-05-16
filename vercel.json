@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/api/transcript", "dest": "/api/transcript" },
+    { "src": "/api/test", "dest": "/api/test" },
+    { "src": "/api/transcript-pages", "dest": "/api/transcript-pages" }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

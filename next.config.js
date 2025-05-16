@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Configure serverExternalPackages for Node.js modules
-  serverExternalPackages: ['youtube-transcript-plus'],
-  
-  // Configure webpack for Node.js modules with proper fallbacks
   webpack: (config, { isServer }) => {
     if (!isServer) {
       // Don't resolve 'fs' module on the client
@@ -15,11 +11,8 @@ const nextConfig = {
     }
     return config;
   },
-  
-  // Include experimental configuration
-  experimental: {
-    serverComponentsExternalPackages: ['youtube-transcript-plus']
-  }
+  // In Next.js 15.3.2, it's serverExternalPackages, not serverComponentsExternalPackages
+  serverExternalPackages: ['youtube-transcript-plus']
 };
 
 module.exports = nextConfig; 
